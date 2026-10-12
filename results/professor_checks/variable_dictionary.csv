@@ -1,0 +1,12 @@
+variable,label,definition,role,aggregation
+reddit_total,Reddit total activity,All retained posts + comments in both subreddits,Primary,"Weekly count; Monday–Sunday, Dubai local time"
+reddit_posts,Reddit posts,Retained top-level submissions (post_type = reddit_post),Primary,"Weekly count; Monday–Sunday, Dubai local time"
+reddit_comments,Reddit comments,Retained comments (post_type = reddit_comment),Secondary,"Weekly count; Monday–Sunday, Dubai local time"
+reddit_dubai,r/dubai activity,All retained posts + comments in r/dubai,Primary,"Weekly count; Monday–Sunday, Dubai local time"
+reddit_dubairealestate,r/DubaiRealEstate activity,All retained posts + comments in r/dubairealestate; case normalized,Primary,"Weekly count; Monday–Sunday, Dubai local time"
+dld_total,Total DLD transactions,"Unique transaction IDs across Sales, Mortgages and Gifts",Primary,"Weekly count; Monday–Sunday, Dubai local time"
+dld_sales,DLD sales,Unique transaction IDs with trans_group_en = Sales,Primary,"Weekly count; Monday–Sunday, Dubai local time"
+dld_mortgages,DLD mortgages,Unique transaction IDs with trans_group_en = Mortgages,Primary,"Weekly count; Monday–Sunday, Dubai local time"
+dld_gifts,DLD gifts,Unique transaction IDs with trans_group_en = Gifts,Primary,"Weekly count; Monday–Sunday, Dubai local time"
+dld_offplan_sales,Off-plan sales,Sales AND reg_type_en = Off-Plan Properties (reg_type_id = 0),Secondary,"Weekly count; Monday–Sunday, Dubai local time"
+dld_ready_sales,Ready/existing sales,Sales AND reg_type_en = Existing Properties (reg_type_id = 1),Secondary,"Weekly count; Monday–Sunday, Dubai local time"

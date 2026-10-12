@@ -1,0 +1,47 @@
+{
+  "version": "extended-reddit-corpus-v1",
+  "status": "extended Reddit corpus rebuilt using the reviewed Reddit cleaning policy",
+  "platforms": [
+    "reddit"
+  ],
+  "subreddits": [
+    "dubai",
+    "dubairealestate"
+  ],
+  "requested_window_utc_start": "2025-07-28 00:00:00+00:00",
+  "requested_window_utc_end_exclusive": "2026-09-07 00:00:00+00:00",
+  "requested_window_description": "2025-07-28 through 2026-09-06 inclusive",
+  "raw_rows_after_source_id_dedup": 217231,
+  "raw_posts": 30363,
+  "raw_comments": 186868,
+  "eligible_records": 175133,
+  "eligible_posts": 21588,
+  "eligible_comments": 153545,
+  "training_unique_texts": 165580,
+  "duplicate_post_ids_removed": 0,
+  "duplicate_comment_ids_removed": 0,
+  "excluded": {
+    "no_property_evidence": 13312,
+    "contact_only": 9092,
+    "known_reddit_automoderator": 7142,
+    "target_solicitation": 6809,
+    "empty_or_deleted_target": 5448,
+    "reaction_only": 295
+  },
+  "missing_submission_context_eligible": 460,
+  "missing_immediate_parent_eligible": 738,
+  "non_latin_flags": 56,
+  "input_hashes": {
+    "dubai_posts_realestate_only.csv": "439fb4841e20022620b22f1330a8657f140a2e2d6fb1e898c231a753d839fe9c",
+    "dubai_comments_realestate_only.csv": "0cdf9c96a05468373eb58736c6f5b09469f0b4789f78439a14dc37e2823cb3e8",
+    "dubairealestate_raw_posts_extended.csv": "685a31f01da18f0364c955ecd324efb0e04cd5dcee76fb3c9950842471c249f5",
+    "dubairealestate_raw_comments_extended.csv": "976027c59b2d69b6fbebf3d25617265a826262744687460c8a593fb60f945a11"
+  },
+  "output_sha256": "faf5a0ed0cd229fdad09ffe8bbfc4d653ff7e3957cdbfa4be98a592fbb239fd1",
+  "code_sha256": "b6503f9b54ac925898c7d392fd017251f392d567f04919ecde523718230bc945",
+  "python": "3.13.15 (main, Aug  6 2026, 11:06:22) [GCC 13.3.0]",
+  "pandas": "2.2.3",
+  "window_timezone": "UTC",
+  "analysis_week_timezone": "Asia/Dubai",
+  "unresolved": "This script reproduces the corpus-building/filtering policy. It does not create new human validation labels or perform downstream DLD association selection."
+}

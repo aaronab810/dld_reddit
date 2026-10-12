@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+aggregate_rerun/
+DLDxReddit_corrected_results/
+data/
+annotation_private/
+.env
+.env.*
