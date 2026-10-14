@@ -80,7 +80,6 @@ Start with [`data/weekly_counts.csv`](data/weekly_counts.csv) and its [variable 
 
 - **Verified:** aggregate analyses, the 21 reference tables and statistical tests.
 - **Available but not rerun:** cleaned DeBERTa inference. Its historical model-weight revision is unknown; new runs record the revision actually used.
-- **Pending:** independent held-out human validation. The original 500-item assessment informed threshold selection and is not an independent test set.
 - **Historical comparison:** four earlier coefficients are reproduced from archived aggregates, not raw records. The later DLD extract differs on overlapping weeks.
 - **Interpretation:** the 58 bins are observed, not independently confirmed complete weeks. Bootstrap intervals are pointwise and depend on stationarity assumptions. Aggregate associations cannot identify individual behaviour.
 
