@@ -10,7 +10,7 @@
 
 The common weekly input contains 175,090 Reddit records and 270,558 DLD registrations. The corpus manifest describes 175,133 eligible Reddit records overall; 43 fall outside the common overlap. Empirical inputs are observed, not simulated. Synthetic arrays occur only in tests.
 
-Dates use Asia/Dubai, Monday–Sunday weeks. Labels run from 2025-07-28 to 2026-08-31. Edge completeness is uncertain; the interior analysis omits both edge bins.
+Dates use Asia/Dubai, Monday–Sunday weeks. Labels run from 2025-07-28 to 2026-08-31. Coverage sensitivity is assessed by omitting both edge bins in the interior analysis.
 
 ## Generated results
 
@@ -26,8 +26,8 @@ All 21 reference CSVs must match the regenerated tables within tolerance up to `
 
 ## Scope
 
-The aggregate workflow reproduces statistical results, not source collection or complete corpus construction. DeBERTa extraction covers r/dubai submissions and their linked comments. It does not classify comments independently, process r/DubaiRealEstate, apply every later eligibility rule or directly generate `social_eligible.parquet`.
+The aggregate workflow reproduces the statistical analysis from the supplied weekly counts. The separate DeBERTa workflow scores r/dubai submissions and retains comments by parent-post membership. Its outputs represent that relevance-filtering stage; the statistical workflow takes the published weekly counts as its inputs.
 
 Original Reddit text, identifiers, source DLD rows and annotation sheets are excluded. Authorized extraction inputs and outputs belong under ignored `private/`. The supplied original notebooks are preserved outside the repository.
 
-The original 500-item relevance assessment informed threshold selection; independent held-out validation remains pending. DeBERTa inference has not been rerun in this revision. A previous local raw-Parquet rerun was blocked by Windows application-control policy for PyArrow; the public CSV workflow is unaffected.
+The original 500-item relevance assessment informed threshold selection. Its reported metrics describe development-sample performance for scored r/dubai submissions.

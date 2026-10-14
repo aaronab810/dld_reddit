@@ -15,6 +15,10 @@ authors:
     given-names: Prajwal
   - family-names: Letsholo
     given-names: Keletso J.
+  - family-names: Amir
+    given-names: Sana
+  - family-names: Gouda
+    given-names: Hazem
 repository-code: "https://github.com/aaronab810/dld_reddit"
 url: "https://github.com/aaronab810/dld_reddit"
 abstract: "Reproducibility materials for an exploratory analysis of weekly Reddit activity and Dubai Land Department registration counts."

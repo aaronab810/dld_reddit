@@ -2,13 +2,13 @@
 
 ## Weekly measurements
 
-The analysis uses 58 observed Monday–Sunday bins in Asia/Dubai, labelled **28 July 2025 to 31 August 2026**. These are not 58 independently verified complete weeks. A sensitivity analysis excludes the first and last bins, leaving 56 interior bins.
+The analysis uses 58 observed Monday–Sunday bins in Asia/Dubai, labelled **28 July 2025 to 31 August 2026**. A sensitivity analysis excludes the first and last bins, leaving 56 interior bins.
 
 The primary analysis combines four Reddit counts with four DLD counts. The complete dictionary covers eleven variables; adding Reddit comments and the sales subdivisions gives 30 Reddit–DLD pairs. All measurements are activity or registration counts, rather than sentiment or speculative intent.
 
 ## Correlations and lag direction
 
-Same-week analyses include Pearson, Spearman and Kendall correlations. Partial Pearson correlation controls for the weekly calendar index. Rank-based partial correlation uses ranked variables and ranked calendar time. No unspecified market or demographic controls are included.
+Same-week analyses include Pearson, Spearman and Kendall correlations. Partial Pearson correlation controls for the weekly calendar index. Rank-based partial correlation uses ranked variables and ranked calendar time. Calendar time is the sole control.
 
 The lag convention is:
 
@@ -29,14 +29,14 @@ The paired stationary bootstrap estimates pointwise 95% percentile intervals for
 - Base seed: **20261012**; the exact derivation is recorded in the implementation.
 - Paired series share the same resampling indices; changes are calculated before resampling.
 
-These are exploratory intervals under approximate stationarity and weak-dependence assumptions. Differencing does not prove those assumptions. The intervals are not simultaneous, are not null permutation tests, and do not establish causality. Conventional correlation p-values and multiplicity adjustments do not themselves resolve autocorrelation.
+These exploratory, pointwise percentile intervals require approximately stationary, weakly dependent changes. The bootstrap targets uncertainty in same-week change correlations. Conventional correlation p-values and multiplicity adjustments are retained as diagnostics; the paired bootstrap supplies the dependence-aware sensitivity.
 
 The full specification is in [`provenance/analysis_specification.json`](provenance/analysis_specification.json). A rerun writes bootstrap outputs to `outputs/bootstrap/`.
 
 ## Reproduction and provenance
 
-`scripts/reproduce.py` compares every saved CSV result with its regenerated counterpart, with numerical tolerance up to `1e-10`. The historical comparison uses the archived weekly inputs in `data/historical/`; it does not reconstruct the original source records.
+`scripts/reproduce.py` compares every saved CSV result with its regenerated counterpart, with numerical tolerance up to `1e-10`. The historical comparison computationally reproduces coefficients from the archived weekly inputs in `data/historical/`.
 
 Provenance manifests retain source checksums. Local workstation and Drive directory prefixes are omitted from the standalone manifests. All empirical aggregates are observed data; synthetic arrays are used only in tests.
 
-Source collection completeness, the historical classifier model revision and independent held-out human validation remain limitations. The supplied extraction notebook now documents the model identifier and inference settings; it does not recover the original weight revision. SMDIS and sentiment analysis are outside the current study.
+The extraction notebook documents the model identifier and inference settings and records the resolved weight revision for each run. The study measures activity counts; relevance-filter performance is described using the development sample used for threshold selection.

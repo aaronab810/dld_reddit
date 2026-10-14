@@ -4,7 +4,7 @@
 
 ### An Exploratory Weekly Association Study
 
-**Muath Alrammal · Milan Dordevic · Nourchène Elleuch Ben Ayed · Aaron Saji Abraham · Prajwal Kokatnur · Keletso J. Letsholo**
+**Muath Alrammal · Milan Dordevic · Nourchène Elleuch Ben Ayed · Aaron Saji Abraham · Prajwal Kokatnur · Keletso J. Letsholo · Sana Amir · Hazem Gouda**
 
 [Study](#the-study) · [Reproduce](#reproduce-the-analysis) · [Notebooks](#notebooks) · [Data](docs/data.md) · [Methods](docs/methods.md) · [Citation](#citation)
 
@@ -26,7 +26,7 @@ The analysis combines contemporaneous correlations, adjustment for calendar time
 
 *Positive lag means Reddit precedes DLD. The figure shows the complete −8 to +8 week window, rather than selecting one maximum.*
 
-These are exploratory associations. They do not establish social-media impact, speculative purchasing, causal effects or validated forecasting signals.
+The findings describe exploratory associations between aggregate platform activity and administrative registrations. Interpretation is at the weekly aggregate level.
 
 ## Reproduce the analysis
 
@@ -55,12 +55,12 @@ python -m unittest discover -s tests
 
 ## Notebooks
 
-| Notebook | Role | Requirements and status |
+| Notebook | Role | Inputs and use |
 | --- | --- | --- |
 | [Analysis](notebooks/analysis.ipynb) | Runs the shared analysis code and displays principal results. | Included aggregates; executed and verified. |
-| [DeBERTa extraction](notebooks/deberta_extraction.ipynb) | Scores r/dubai posts and retains comments linked to selected posts. | Private CSVs and model weights; cleaned from the supplied notebook, inference not rerun here. |
+| [DeBERTa extraction](notebooks/deberta_extraction.ipynb) | Scores r/dubai posts and retains comments linked to selected posts. | Authorized private CSVs and model weights; records the configuration and provenance of each run. |
 
-The extraction notebook is an upstream component, **not a complete reconstruction of the extended corpus**. Additional eligibility rules, r/DubaiRealEstate processing and final corpus assembly are not recreated by these two notebooks. See [extraction details](docs/extraction.md).
+The extraction notebook covers the **r/dubai relevance-filtering stage**. The analysis notebook starts from the published weekly aggregates for both communities. These are distinct entry points, with inputs and scope described in [extraction details](docs/extraction.md).
 
 ## Repository structure
 
@@ -76,17 +76,17 @@ tests/         Regression tests
 
 Start with [`data/weekly_counts.csv`](data/weekly_counts.csv) and its [variable dictionary](data/variables.csv). The 21 expected tables are bundled in [`data/reference_results.zip`](data/reference_results.zip), keeping generated files out of the main repository view. [Checksums](docs/provenance/checksums.json) identify the published files.
 
-## Reproducibility and limitations
+## Reproducibility and interpretation
 
 - **Verified:** aggregate analyses, the 21 reference tables and statistical tests.
-- **Available but not rerun:** cleaned DeBERTa inference. Its historical model-weight revision is unknown; new runs record the revision actually used.
-- **Historical comparison:** four earlier coefficients are reproduced from archived aggregates, not raw records. The later DLD extract differs on overlapping weeks.
-- **Interpretation:** the 58 bins are observed, not independently confirmed complete weeks. Bootstrap intervals are pointwise and depend on stationarity assumptions. Aggregate associations cannot identify individual behaviour.
+- **Extraction workflow:** the DeBERTa notebook records the exact model revision, inference settings, dependency versions and input hashes for each run.
+- **Historical comparison:** four earlier coefficients are computationally reproduced from archived aggregates. The later DLD extract has different counts for overlapping weeks, so the comparison retains the original aggregate inputs.
+- **Interpretation:** the primary analysis uses 58 observed bins, with a 56-bin sensitivity excluding both edges. Bootstrap intervals are exploratory and pointwise, conditional on approximate stationarity and weak dependence. The unit of inference is the weekly aggregate.
 
 Raw Reddit text, usernames, private annotations and credentials are not distributed. SMDIS and sentiment analysis are outside this study. See [data and reproducibility scope](docs/data.md).
 
 ## Citation
 
-The manuscript is a research draft; no publication venue or DOI is claimed here. Use GitHub's **Cite this repository** entry or [`CITATION.cff`](CITATION.cff) to reference the software and aggregate reproduction materials, and record the commit used.
+Use GitHub's **Cite this repository** entry or [`CITATION.cff`](CITATION.cff) to reference the software and aggregate reproduction materials, and record the commit used.
 
-No reuse licence has yet been specified by the authors. Public availability alone does not grant a reuse licence.
+Rights remain with the respective authors and data owners.

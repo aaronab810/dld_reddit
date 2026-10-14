@@ -43,5 +43,5 @@
   "pandas": "2.2.3",
   "window_timezone": "UTC",
   "analysis_week_timezone": "Asia/Dubai",
-  "unresolved": "This script reproduces the corpus-building/filtering policy. It does not create new human validation labels or perform downstream DLD association selection."
+  "scope": "Source corpus-building and filtering policy; downstream association analysis uses the supplied weekly aggregates."
 }

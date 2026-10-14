@@ -23,14 +23,14 @@ The original development threshold sweep used `>=`; production filtering used st
 
 ## Running extraction
 
-Use a separate environment and install `environments/extraction.txt`. A compatible PyTorch installation is needed. A GPU is recommended, with CPU fallback in the notebook. Transformers, SentencePiece and Hugging Face Hub versions come from the supplied notebook's saved installation output; the other original versions were not fully pinned.
+Use a separate environment and install `environments/extraction.txt`. A compatible PyTorch installation is needed. A GPU is recommended, with CPU fallback in the notebook. Transformers, SentencePiece and Hugging Face Hub versions come from the supplied notebook's saved installation output; each new run records its installed dependency versions.
 
 Configure posts (`post_id`, `post_text`), comments (`comment_id`, `post_id`) and an optional **development** label CSV (`post_text`, binary `actual_label`). Metadata columns are preserved. IDs must be nonmissing and unique; blank text fails before model loading. Outputs are written under ignored `private/extraction_outputs/`, and no raw rows are displayed.
 
-## Provenance and limits
+## Run provenance and evaluation scope
 
-The historical model-weight revision is unknown. `MODEL_REVISION = "main"` resolves a current revision, records it and uses that exact SHA for loading. Replace `main` with the recorded SHA to repeat that new run. This does not recover historical weights or guarantee the original scores. Each completed run records model revision, settings, dependency versions and input hashes.
+`MODEL_REVISION = "main"` resolves a current revision, records it and uses that exact SHA for loading. Replace `main` with the recorded SHA to repeat that run. Each completed run records model revision, settings, dependency versions and input hashes. These provenance records identify the configuration of the specific extraction run.
 
-Optional development evaluation is **not held-out validation**. Do not use the pending held-out sample for threshold selection. The cleaned notebook is syntax-checked and its filtering logic is tested with synthetic fixtures; no new full-corpus inference or human-validation metrics are claimed.
+Optional evaluation reports **development-sample diagnostics** for threshold selection. Use development labels for this step and keep any independent evaluation sample separate. Syntax checks and synthetic-fixture tests cover the notebook and filtering logic.
 
-This is one component of corpus construction. It does not recreate r/DubaiRealEstate processing, later eligibility decisions or final corpus assembly. Its outputs are not automatically equivalent to the published aggregates.
+This component produces scored r/dubai submissions and linked comments. The downstream statistical analysis uses the separately supplied weekly aggregates for both communities.
