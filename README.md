@@ -1,5 +1,7 @@
 # Reddit Activity and Dubai Real Estate Registrations
 
+[![Reproduce analysis](https://github.com/aaronab810/dld_reddit/actions/workflows/reproduce.yml/badge.svg)](https://github.com/aaronab810/dld_reddit/actions/workflows/reproduce.yml)
+
 ### An Exploratory Weekly Association Study
 
 **Muath Alrammal · Milan Dordevic · Nourchène Elleuch Ben Ayed · Aaron Saji Abraham · Prajwal Kokatnur · Keletso J. Letsholo**
