@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 import pandas as pd
-from dependence_checks import stationary_indices,bootstrap_correlations,run_dependence_checks
+from src.dld_reddit.bootstrap import stationary_indices,bootstrap_correlations,run_bootstrap_analysis
 
 class DependenceTests(unittest.TestCase):
     def test_reproducible_circular_blocks(self):
@@ -24,6 +24,6 @@ class DependenceTests(unittest.TestCase):
         for c in ['reddit_total','reddit_posts','reddit_dubai','reddit_dubairealestate','dld_sales']:
             f[c]=np.arange(58)
         with self.assertRaisesRegex(ValueError,'Missing weeks'):
-            run_dependence_checks(f.drop(index=20),'unused_missing_week_test_output',20)
+            run_bootstrap_analysis(f.drop(index=20),'unused_missing_week_test_output',20)
 
 if __name__=='__main__': unittest.main()

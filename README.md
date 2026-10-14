@@ -1,12 +1,34 @@
-# Reddit activity and Dubai real estate registrations
+# Reddit Activity and Dubai Real Estate Registrations
 
-Code and weekly aggregate data for **Reddit Activity and Dubai Real Estate Registrations: An Exploratory Weekly Association Study**.
+### An Exploratory Weekly Association Study
 
-The study examines associations between Reddit activity and Dubai Land Department (DLD) registration counts across 58 observed weekly bins. It does not establish causal effects, real-estate speculation, or a validated forecasting signal.
+**Muath Alrammal · Milan Dordevic · Nourchène Elleuch Ben Ayed · Aaron Saji Abraham · Prajwal Kokatnur · Keletso J. Letsholo**
 
-## Reproduce the results
+[Study](#the-study) · [Reproduce](#reproduce-the-analysis) · [Notebooks](#notebooks) · [Data](docs/data.md) · [Methods](docs/methods.md) · [Citation](#citation)
 
-Use **Python 3.12**. Clone or download this repository, then run these commands from its root folder:
+## The study
+
+Do relationships between online housing discussion and property-market activity persist when we account for time trends and examine week-to-week changes?
+
+This study compares **175,090 retained Reddit submissions and comments** from r/dubai and r/DubaiRealEstate with **270,558 Dubai Land Department registrations** across **58 observed weekly bins**, labelled 28 July 2025 to 31 August 2026. We examine activity counts against sales, mortgages and gifts, with additional analyses of off-plan and ready/existing sales.
+
+The analysis combines contemporaneous correlations, adjustment for calendar time, weekly changes, complete lag profiles and a paired stationary bootstrap. Its purpose is to assess how stable the associations are under different analytical choices.
+
+### Main findings
+
+- **Time trends matter.** The r/dubai–sales correlation falls from **0.572** in levels to **0.231** after linear time adjustment.
+- **Some same-week change associations persist.** Submissions and sales have a weekly-change correlation of **0.508**. Submissions and r/dubai have positive pointwise bootstrap intervals across the tested block lengths; pooled activity and r/DubaiRealEstate intervals include zero.
+- **There is no robust single lead–lag delay.** Lag profiles change across levels, detrended series, weekly changes and temporal support.
+
+![Full lag profiles for four Reddit–DLD sales pairs](docs/assets/lag_profiles.png)
+
+*Positive lag means Reddit precedes DLD. The figure shows the complete −8 to +8 week window, rather than selecting one maximum.*
+
+These are exploratory associations. They do not establish social-media impact, speculative purchasing, causal effects or validated forecasting signals.
+
+## Reproduce the analysis
+
+The public analysis runs from included weekly aggregates. No Reddit account, private text, GPU or DeBERTa download is needed. Use **Python 3.12**.
 
 ```sh
 git clone https://github.com/aaronab810/dld_reddit.git
@@ -14,53 +36,56 @@ cd dld_reddit
 python -m venv .venv
 ```
 
-Activate the environment:
-
-- **Windows PowerShell:** `.\.venv\Scripts\Activate.ps1`
-- **macOS / Linux:** `source .venv/bin/activate`
-
-Then install the dependencies and run the analysis:
+Activate with `.\.venv\Scripts\Activate.ps1` on Windows PowerShell, or `source .venv/bin/activate` on macOS/Linux. Then:
 
 ```sh
 python -m pip install -r requirements.txt
-python reproduce_from_aggregates.py
+python scripts/reproduce.py
 ```
 
-This regenerates the tables and figures in `aggregate_rerun/` and compares **21 CSV tables** with the saved reference results, including the stationary bootstrap and historical aggregate comparison. A successful run ends with:
+The command regenerates tables and figures in `outputs/` and verifies **all 21 reference tables**, including bootstrap results and the historical aggregate comparison. It finishes with `Reproduction complete: 21 reference tables verified.` followed by the output path. Generated outputs stay out of Git.
 
-```text
-Downstream results reproduced: 21 CSV tables verified. Historical checks passed.
-```
-
-To run the 18 analysis tests:
+Run the tests with:
 
 ```sh
 python -m unittest discover -s tests
 ```
 
-## What is included
+## Notebooks
 
-| File or folder | Purpose |
-| --- | --- |
-| [`reproduce_from_aggregates.py`](reproduce_from_aggregates.py) | Main entry point: rerun and check the results. |
-| [`analysis_core.py`](analysis_core.py) | Weekly alignment, correlations and lag analysis. |
-| [`professor_checks.py`](professor_checks.py) | Variable definitions, weekly changes, sensitivity analyses and historical comparison. |
-| [`dependence_checks.py`](dependence_checks.py) | Stationary bootstrap and autocorrelation diagnostics. |
-| [`notebooks/analysis.ipynb`](notebooks/analysis.ipynb) | Executed, self-contained notebook with embedded aggregate inputs; suitable for Colab. |
-| [`results/`](results/) | Aggregate inputs and expected numerical outputs. |
-| [`reference/`](reference/) | Earlier aggregate inputs and source provenance. |
-| [`tests/`](tests/) | Checks for lag direction, missing weeks, controls and bootstrap behaviour. |
-| [`docs/methods.md`](docs/methods.md) | Analytical choices and interpretation limits. |
-| [`SHA256.json`](SHA256.json) | Checksums for the published files. |
+| Notebook | Role | Requirements and status |
+| --- | --- | --- |
+| [Analysis](notebooks/analysis.ipynb) | Runs the shared analysis code and displays principal results. | Included aggregates; executed and verified. |
+| [DeBERTa extraction](notebooks/deberta_extraction.ipynb) | Scores r/dubai posts and retains comments linked to selected posts. | Private CSVs and model weights; cleaned from the supplied notebook, inference not rerun here. |
 
-The main input is [`weekly_all_variables.csv`](results/professor_checks/weekly_all_variables.csv). The [variable dictionary](results/professor_checks/variable_dictionary.csv) defines its columns. Generated outputs are ignored by Git so rerunning the analysis keeps the checkout clean.
+The extraction notebook is an upstream component, **not a complete reconstruction of the extended corpus**. Additional eligibility rules, r/DubaiRealEstate processing and final corpus assembly are not recreated by these two notebooks. See [extraction details](docs/extraction.md).
 
-## Scope and limitations
+## Repository structure
 
-The public workflow reproduces the analysis **from saved aggregates**. It does not rerun data collection, relevance classification or human annotation. Raw Reddit records, private annotation sheets and credentials are not included. Independent held-out annotation remains unfinished; no completed held-out validation is claimed.
+```text
+data/          Weekly inputs, variable dictionary, historical aggregates and reference tables
+docs/          Methods, data provenance, extraction notes and the overview figure
+environments/  Optional dependencies for DeBERTa extraction
+notebooks/     Analysis and relevance-extraction workflows
+scripts/       Reproduction entry point
+src/           Shared statistical implementation
+tests/         Regression tests
+```
 
-The earlier-study comparison reproduces four coefficients from archived aggregates. It is not a direct raw-data replication: the later DLD extract has different counts for overlapping weeks.
+Start with [`data/weekly_counts.csv`](data/weekly_counts.csv) and its [variable dictionary](data/variables.csv). The 21 expected tables are bundled in [`data/reference_results.zip`](data/reference_results.zip), keeping generated files out of the main repository view. [Checksums](docs/provenance/checksums.json) identify the published files.
 
-The notebook defaults to aggregate mode. Its optional raw-data mode requires the original authorized inputs, configured paths and `requirements-raw.txt`; those inputs are not supplied here. The current revision was verified in aggregate mode. The local raw-data rerun was blocked by an operating-system restriction on PyArrow.
+## Reproducibility and limitations
 
-No reuse licence has yet been specified by the authors. Public access alone does not grant a reuse licence.
+- **Verified:** aggregate analyses, the 21 reference tables and statistical tests.
+- **Available but not rerun:** cleaned DeBERTa inference. Its historical model-weight revision is unknown; new runs record the revision actually used.
+- **Pending:** independent held-out human validation. The original 500-item assessment informed threshold selection and is not an independent test set.
+- **Historical comparison:** four earlier coefficients are reproduced from archived aggregates, not raw records. The later DLD extract differs on overlapping weeks.
+- **Interpretation:** the 58 bins are observed, not independently confirmed complete weeks. Bootstrap intervals are pointwise and depend on stationarity assumptions. Aggregate associations cannot identify individual behaviour.
+
+Raw Reddit text, usernames, private annotations and credentials are not distributed. SMDIS and sentiment analysis are outside this study. See [data and reproducibility scope](docs/data.md).
+
+## Citation
+
+The manuscript is a research draft; no publication venue or DOI is claimed here. Use GitHub's **Cite this repository** entry or [`CITATION.cff`](CITATION.cff) to reference the software and aggregate reproduction materials, and record the commit used.
+
+No reuse licence has yet been specified by the authors. Public availability alone does not grant a reuse licence.

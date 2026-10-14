@@ -31,12 +31,12 @@ The paired stationary bootstrap estimates pointwise 95% percentile intervals for
 
 These are exploratory intervals under approximate stationarity and weak-dependence assumptions. Differencing does not prove those assumptions. The intervals are not simultaneous, are not null permutation tests, and do not establish causality. Conventional correlation p-values and multiplicity adjustments do not themselves resolve autocorrelation.
 
-The full specification and outputs are in [`results/dependence_checks/`](../results/dependence_checks/).
+The full specification is in [`provenance/analysis_specification.json`](provenance/analysis_specification.json). A rerun writes bootstrap outputs to `outputs/bootstrap/`.
 
 ## Reproduction and provenance
 
-`reproduce_from_aggregates.py` compares every saved CSV result with its regenerated counterpart, with numerical tolerance up to `1e-10`. The historical comparison uses the archived weekly inputs in `reference/`; it does not reconstruct the original source records.
+`scripts/reproduce.py` compares every saved CSV result with its regenerated counterpart, with numerical tolerance up to `1e-10`. The historical comparison uses the archived weekly inputs in `data/historical/`; it does not reconstruct the original source records.
 
 Provenance manifests retain source checksums. Local workstation and Drive directory prefixes are omitted from the standalone manifests. All empirical aggregates are observed data; synthetic arrays are used only in tests.
 
-Source collection completeness, classifier provenance and independent held-out human validation remain limitations. SMDIS and sentiment analysis are outside the current study.
+Source collection completeness, the historical classifier model revision and independent held-out human validation remain limitations. The supplied extraction notebook now documents the model identifier and inference settings; it does not recover the original weight revision. SMDIS and sentiment analysis are outside the current study.

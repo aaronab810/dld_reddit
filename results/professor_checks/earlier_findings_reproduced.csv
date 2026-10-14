@@ -1,5 +1,0 @@
-domain_id,outcome,n,pearson,change_n,change_pearson,extended_replication
-1,median_sale_amount_aed,16,-0.5539255314027138,15,-0.019754010928687008,Not estimable: extended topic shares unavailable
-3,offplan_count,16,0.4104953691670499,15,0.1881355695473718,Not estimable: extended topic shares unavailable
-3,ready_count,16,0.7478185319168218,15,0.3604670595266962,Not estimable: extended topic shares unavailable
-9,sales_registrations,16,-0.7826905089555152,15,-0.4985681069329428,Not estimable: extended topic shares unavailable

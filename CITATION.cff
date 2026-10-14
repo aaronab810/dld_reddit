@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "Please cite this repository when using its code or aggregate materials, and record the commit used."
+type: software
+title: "Reddit Activity and Dubai Real Estate Registrations: Reproducibility Materials"
+authors:
+  - family-names: Alrammal
+    given-names: Muath
+  - family-names: Dordevic
+    given-names: Milan
+  - family-names: Elleuch Ben Ayed
+    given-names: Nourchène
+  - family-names: Abraham
+    given-names: Aaron Saji
+  - family-names: Kokatnur
+    given-names: Prajwal
+  - family-names: Letsholo
+    given-names: Keletso J.
+repository-code: "https://github.com/aaronab810/dld_reddit"
+url: "https://github.com/aaronab810/dld_reddit"
+abstract: "Reproducibility materials for an exploratory analysis of weekly Reddit activity and Dubai Land Department registration counts."
+keywords:
+  - Reddit
+  - Dubai
+  - time series
+  - reproducibility

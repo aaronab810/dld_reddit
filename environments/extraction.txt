@@ -1,0 +1,9 @@
+# Separate optional extraction environment; observed versions from the supplied notebook.
+transformers==5.16.1
+sentencepiece==0.2.2
+huggingface-hub==1.29.0
+torch
+pandas
+scikit-learn
+# Torch/pandas/sklearn versions were not pinned in the source notebook.
+# The extraction notebook records their resolved versions on each run.

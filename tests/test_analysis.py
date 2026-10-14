@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 import pandas as pd
 from scipy import stats
-from analysis_core import lag_profile, coefficient, peak_summary, bh_adjust, coverage_mask, regular_weekly
+from src.dld_reddit.analysis import lag_profile, coefficient, peak_summary, bh_adjust, coverage_mask, regular_weekly
 
 
 class AnalysisTests(unittest.TestCase):

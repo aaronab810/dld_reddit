@@ -1,9 +1,9 @@
 import unittest
 import pandas as pd
-from professor_checks import augment_weekly, peak_shape
+from src.dld_reddit.sensitivity import augment_weekly, peak_shape
 
 
-class ProfessorCheckTests(unittest.TestCase):
+class SensitivityTests(unittest.TestCase):
     def fixture(self):
         w=pd.DataFrame({'week':['2026-01-05'],'reddit_total':[3],'reddit_posts':[1],'reddit_comments':[2],'dld_sales':[2]})
         d=pd.DataFrame({'transaction_id':['a','b','c'],'instance_date':['2026-01-06']*3,

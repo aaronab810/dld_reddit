@@ -1,0 +1,45 @@
+{
+  "sensitivity": {
+    "lag_convention": "corr(R[t], D[t+k]); positive k = Reddit precedes DLD",
+    "control": "One deterministic weekly index t, intercept included; no same-week or lagged market covariates",
+    "primary_pairs": 16,
+    "all_defined_pairs_for_change_and_lag_checks": 30,
+    "lag_values_per_profile": 17,
+    "offplan_sales": 146720,
+    "ready_sales": 67179,
+    "earlier_window": "Monday labels 2026-01-05 to 2026-04-20 (ending Sunday 2026-04-26)",
+    "comparison_limit": "Activity counts are not the earlier topic shares; no direct semantic replication claimed"
+  },
+  "bootstrap": {
+    "seed": 20261012,
+    "replicates": 10000,
+    "expected_block_lengths": [
+      2,
+      4,
+      8
+    ],
+    "confidence": 0.95,
+    "estimand": "same-week Pearson correlation of first weekly differences",
+    "pairs": [
+      [
+        "reddit_total",
+        "dld_sales"
+      ],
+      [
+        "reddit_posts",
+        "dld_sales"
+      ],
+      [
+        "reddit_dubai",
+        "dld_sales"
+      ],
+      [
+        "reddit_dubairealestate",
+        "dld_sales"
+      ]
+    ],
+    "selection": "Existing four main sales pairs; exploratory, chosen after prior analyses",
+    "assumptions": "Weakly dependent approximately stationary changes; not established by differencing",
+    "interval": "Pointwise percentile; not simultaneous and not a test of zero correlation"
+  }
+}

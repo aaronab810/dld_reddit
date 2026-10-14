@@ -7,7 +7,7 @@ from pathlib import Path
 import json
 import numpy as np
 import pandas as pd
-from analysis_core import regular_weekly, REDDIT_VARS
+from .analysis import regular_weekly, REDDIT_VARS
 
 CONFIG = dict(seed=20261012, replicates=10000, expected_block_lengths=[2,4,8],
               confidence=.95, estimand='same-week Pearson correlation of first weekly differences',
@@ -43,7 +43,7 @@ def bootstrap_correlations(x,y,indices):
     return np.clip(values,-1,1)
 
 
-def run_dependence_checks(weekly,out_dir,replicates=10000):
+def run_bootstrap_analysis(weekly,out_dir,replicates=10000):
     f=regular_weekly(weekly)
     columns=REDDIT_VARS+['dld_sales']
     if f[columns].isna().any().any():
@@ -73,9 +73,3 @@ def run_dependence_checks(weekly,out_dir,replicates=10000):
     pd.DataFrame(acf).to_csv(out/'autocorrelation_diagnostics.csv',index=False)
     (out/'bootstrap_specification.json').write_text(json.dumps(CONFIG|{'replicates':replicates},indent=2),encoding='utf-8')
     return result
-
-
-if __name__=='__main__':
-    root=Path(__file__).resolve().parent
-    f=pd.read_csv(root/'results/professor_checks/weekly_all_variables.csv',parse_dates=['week'])
-    print(run_dependence_checks(f,root/'results/dependence_checks').round(4).to_string(index=False))

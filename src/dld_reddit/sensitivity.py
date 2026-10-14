@@ -1,10 +1,10 @@
-"""Reproducible checks requested by the professor; aggregate-only outputs."""
+"""Weekly-change, lag-profile and historical-comparison analyses."""
 from pathlib import Path
 import json
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from analysis_core import regular_weekly, coefficient, lag_profile, peak_summary, REDDIT_VARS
+from .analysis import regular_weekly, coefficient, lag_profile, peak_summary, REDDIT_VARS
 
 DICTIONARY = [
     ('reddit_total','Reddit total activity','All retained posts + comments in both subreddits','Primary'),
@@ -60,7 +60,7 @@ def peak_shape(profile, window=8):
     return info
 
 
-def run_professor_checks(weekly, dld, output_dir):
+def run_sensitivity_analysis(weekly, dld, output_dir):
     out=Path(output_dir);out.mkdir(parents=True,exist_ok=True)
     f=regular_weekly(weekly) if dld is None else augment_weekly(weekly,dld)
     dictionary=pd.DataFrame(DICTIONARY,columns=['variable','label','definition','role'])
@@ -99,7 +99,7 @@ def run_professor_checks(weekly, dld, output_dir):
             ax.axhline(0,color='#bbb',lw=.5);ax.set_ylabel('Standardized change' if change else 'Standardized count',fontsize=9)
             ax.tick_params(labelsize=8)
         axes[0].legend(fontsize=8,ncol=2);axes[0].set_title(LABELS[x]+' and DLD sales',fontsize=10)
-        for ext in ['png','pdf']:fig.savefig(out/f'weekly_pair_{x}.{ext}',dpi=180)
+        fig.savefig(out/f'weekly_pair_{x}.png',dpi=180)
         plt.close(fig)
     fig,axes=plt.subplots(2,2,figsize=(7,5),sharex=True,sharey=True,layout='constrained')
     for x,ax in zip(REDDIT_VARS,axes.flat):
@@ -110,7 +110,7 @@ def run_professor_checks(weekly, dld, output_dir):
         ax.set_xticks([-8,-4,0,4,8]);ax.axhline(0,color='#bbb',lw=.5);ax.axvline(0,color='#bbb',lw=.5)
         ax.tick_params(labelsize=8);ax.set_xlabel('Lag (weeks)',fontsize=9);ax.set_ylabel('Pearson r',fontsize=9)
     axes[0,0].legend(fontsize=7)
-    for ext in ['png','pdf']:fig.savefig(out/f'lag_profiles_minus8_plus8.{ext}',dpi=180)
+    fig.savefig(out/'lag_profiles_minus8_plus8.png',dpi=180)
     plt.close(fig)
     # Common measurement across time; this is not a replication of topic-share findings.
     window=f.week.between('2026-01-05','2026-04-20')
@@ -150,13 +150,3 @@ def reproduce_earlier(earlier_domains, earlier_dld, saved_associations, extended
     for new,previous in [('dld_sales','sales_registrations'),('dld_offplan_sales','offplan_count'),('dld_ready_sales','ready_count')]:
         checks[new+'_minus_prior']=checks[new]-checks[previous]
     checks.to_csv(out/'earlier_dld_count_reconciliation.csv',index=False)
-
-
-if __name__=='__main__':
-    weekly=pd.read_csv('results/observed_58_weeks/weekly_aggregates.csv',parse_dates=['week'])
-    dld=pd.read_csv('data/DLD_transactions_1year.csv',usecols=['transaction_id','instance_date','trans_group_en','reg_type_en','reg_type_id'],dtype={'transaction_id':'string'})
-    out=Path('results/professor_checks')
-    f,comparison,periods=run_professor_checks(weekly,dld,out)
-    reproduce_earlier(pd.read_csv('reference/earlier_domain_weekly.csv'),pd.read_csv('reference/earlier_dld_weekly.csv'),pd.read_csv('reference/earlier_primary_contemporaneous.csv'),f,out)
-    print(comparison.loc[comparison.reddit.isin(REDDIT_VARS)&comparison.dld.eq('dld_sales')].to_string(index=False))
-    print(periods.to_string(index=False))

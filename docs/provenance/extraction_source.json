@@ -1,0 +1,15 @@
+{
+  "source_filename": "dubai_deberta_extraction (3).ipynb",
+  "source_sha256": "96a2cbafeb2003df0da95fe2283d9517598e09d9ff13a5cc4c4b6a6956969959",
+  "historical_weight_revision": "Not specified in supplied notebook",
+  "model_id": "MoritzLaurer/deberta-v3-large-zeroshot-v2.0",
+  "source_observed_versions": {
+    "transformers": "5.16.1",
+    "sentencepiece": "0.2.2",
+    "huggingface-hub": "1.29.0"
+  },
+  "production_operator": ">",
+  "development_sweep_operator": ">=",
+  "cleaned_notebook_inference_rerun": false,
+  "saved_raw_outputs_included": false
+}
